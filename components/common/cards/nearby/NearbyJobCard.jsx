@@ -1,13 +1,20 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 
 import styles from './nearbyjobcard.style'
 
-const NearbyJobCard = () => {
+const NearbyJobCard = ({ item, handleNavigate }) => {
   return (
-    <View>
-      <Text>NearbyJobCard</Text>
-    </View>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={handleNavigate}
+    >
+      <View style={styles.textContainer}>
+        <Text style={styles.jobName} numberOfLines={1}>{item.name}</Text>
+        <Text style={styles.jobType}>{item.code}</Text>
+      </View>
+      <Text style={styles.companyName} numberOfLines={1}>Quantity: {item.qty}</Text>
+    </TouchableOpacity>
   )
 }
 
