@@ -6,6 +6,10 @@ import { Company, JobAbout, JobFooter, JobTabs, ScreenHeaderBtn, Specifics } fro
 import { COLORS, icons, SIZES } from '../../constants';
 import useFetch from '../../Hook/useFetch';
 import useFetchById from '../../Hook/useFetchById';
+import {
+  Company,
+  JobTabs
+} from "../components";
 
 const ProductDetails = () => {
 
@@ -56,7 +60,10 @@ const ProductDetails = () => {
                 ) : (
                   <View style={{padding: SIZES.medium, paddingBottom: 100}}>
                     <Company
-
+                      jobTitle={data[0].name}
+                      code={data[0].code}
+                      qty={data[0].qty}
+                      mrp={data[0].mrp}
                     />
                     <JobTabs
 
