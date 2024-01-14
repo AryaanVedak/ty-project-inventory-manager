@@ -8,7 +8,7 @@ import { checkImageUrl } from '../../../utils'
 const Company = ({ jobTitle, code, qty, mrp }) => {
   return (
     <View>
-      <Text>Company</Text>
+      <Text>Company Details</Text>
     </View>
   )
 }
