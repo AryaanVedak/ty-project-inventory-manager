@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     color: COLORS.gray,
     fontFamily: FONT.regular,
     marginLeft: 2,
+    marginTop: 4,
   },
 });
 

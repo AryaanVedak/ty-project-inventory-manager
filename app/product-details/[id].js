@@ -19,6 +19,7 @@ import {
 } from "../../components";
 import { COLORS, icons, SIZES } from "../../constants";
 import useFetchById from "../../Hook/useFetchById";
+import BasicCard from "../../components/common/cards/basic/BasicCard";
 
 const ProductDetails = () => {
   const params = useSearchParams();
@@ -46,7 +47,7 @@ const ProductDetails = () => {
             <ScreenHeaderBtn
               iconUrl={icons.left}
               dimension='60%'
-              handlePress={() => router.back()}
+              handlepress={() => router.back()}
             />
           ),
           headerRight: () => (
@@ -76,8 +77,8 @@ const ProductDetails = () => {
                 mrp={data.name}
               />
 
-              <JobTabs
-
+              <BasicCard 
+                data={data}
               />
 
             </View>
