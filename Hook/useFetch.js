@@ -8,7 +8,7 @@ const useFetch = () => {
 
     const options = {
         method: 'GET',
-        url: 'http://192.168.29.169:5001/api/inventory/fetchinventory',
+        url: 'http://192.168.137.228:5001/api/inventory/fetchinventory',
         params: {},
         headers: {
             'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM',

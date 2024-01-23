@@ -9,8 +9,7 @@ import Checkout from '../../components/home/checkout/Checkout';
 import useFetch from '../../Hook/useFetch';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { router } from 'expo-router';
-import Scanner from '../scanner/Scanner';
+import { Button } from '@rneui/themed';
 
 
 const SearchBuying = () => {
@@ -20,6 +19,7 @@ const SearchBuying = () => {
 	const {data, isLoading, error} = useFetch();
 	const [search, setSearch] = useState();
 	const [newData, setNewData] = useState(null);
+	const [cartItems, setCartItems] = useState(5);
 
 	const navigation = useNavigation()
 
@@ -41,9 +41,14 @@ const SearchBuying = () => {
 		<>
 			<SafeAreaView style={{ flex: 1, backgroundColor: "#FAFAFC" }}>
 				<FAB
-					placement='right'
+					// placement='right'
 					color="#312651"
-					style={{zIndex: 1}}	
+					style={{
+						zIndex: 1,
+						position: 'absolute',
+						bottom: 80,
+						right: 30
+					}}	
 					onPress={() => navigation.navigate('scanner')}
 					>
 						<Icon
@@ -86,6 +91,36 @@ const SearchBuying = () => {
 						/>
 					</View>
 				</ScrollView>
+				<View style={{
+					backgroundColor: COLORS.tertiary,
+					margin: 20,
+					height: 50,
+					width: 350,
+					paddingTop: 5,
+					paddingBottom: 5,
+					paddingLeft: 30,
+					paddingRight: 10,
+					borderRadius: 20,
+					position: 'absolute',
+					bottom: 0,
+					alignSelf: 'center',
+					alignItems: 'center',
+					flexDirection: 'row',
+				}}>
+					<Text style={{
+						fontSize: SIZES.medium,
+						fontFamily: "DMBold",
+						color: "black",
+						flex: 1
+
+					}}>Items in Cart: {cartItems}</Text>
+					<Button radius={"sm"} type="clear" style={{
+						flex: 5,
+						alignSelf: 'flex-end'
+					}}>
+						<Icon name="chevron-right" color="white"  />
+					</Button>
+				</View>
 			</SafeAreaView>
 		</>
 	)

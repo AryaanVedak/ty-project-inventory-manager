@@ -9,7 +9,9 @@ import { ScreenHeaderBtn } from "../components";
 import Buying from './buying/BuyingPage';
 import HomePage from "../components/home/HomePage";
 import { Ionicons } from '@expo/vector-icons';
-import { Feather } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Icon } from "react-native-paper";
+
 
 const Home = () => {
 	
@@ -42,20 +44,52 @@ const Home = () => {
         />
         {/* <HomePage/> */}
         <Tab.Navigator 
-          screenOptions={{
+          screenOptions={({route}) => ({
             headerShown: false,
-            // tabBarShowLabel: false,
-          }}
+            // tabBarIcon: ({ focused, color, size }) => {
+            //   let iconName;
+            //   if (route.name === 'HomeStack') {
+            //     iconName = focused
+            //       ? 'home-circle'
+            //       : 'home-circle-outline';
+            //   } else if (route.name === 'SettingsStack') {
+            //     iconName = focused
+            //       ? 'account-settings'
+            //       : 'account-settings-outline';
+            //   }
+            //   return (
+            //     <Ionicons
+            //       name={iconName}
+            //       size={size}
+            //       color={color}
+            //     />
+            //   );
+            // }
+          })}
         >
           <Tab.Screen name='Home' component={HomePage} options={{
-            tabBarIcon: () => {
-              <Ionicons name="home-outline" size={24} color="black" />
+            tabBarIcon: ({focused}) => {
+              return (
+                <View style={{alignItems: "center", justifyContent: "center"}}>
+                  <Ionicons name="home" size={24} color={focused ? COLORS.tertiary : "black"} />
+                </View>
+              )
             }
+            // tabBarIcon: () => {
+            //   <Icon name="chevron-right" color="white"  />
+            // }
           }}/>
           <Tab.Screen name='Buying' component={Buying} options={{
-            tabBarIcon: () => {
-              <Feather name="home-outline" size={24} color="black" />
+            tabBarIcon: ({focused}) => {
+              return (
+                <View style={{alignItems: "center", justifyContent: "center"}}>
+                  <MaterialIcons name="business-center" size={24} color={focused ? COLORS.tertiary : "black"} />
+                </View>
+              )
             }
+            // tabBarIcon: () => {
+            //   <Feather name="home-outline" size={24} color="black" />
+            // }
           }}/>
         </Tab.Navigator>
       </SafeAreaView>
