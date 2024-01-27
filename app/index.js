@@ -46,25 +46,6 @@ const Home = () => {
         <Tab.Navigator 
           screenOptions={({route}) => ({
             headerShown: false,
-            // tabBarIcon: ({ focused, color, size }) => {
-            //   let iconName;
-            //   if (route.name === 'HomeStack') {
-            //     iconName = focused
-            //       ? 'home-circle'
-            //       : 'home-circle-outline';
-            //   } else if (route.name === 'SettingsStack') {
-            //     iconName = focused
-            //       ? 'account-settings'
-            //       : 'account-settings-outline';
-            //   }
-            //   return (
-            //     <Ionicons
-            //       name={iconName}
-            //       size={size}
-            //       color={color}
-            //     />
-            //   );
-            // }
           })}
         >
           <Tab.Screen name='Home' component={HomePage} options={{
