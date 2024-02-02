@@ -33,7 +33,7 @@ const Scanner = () => {
       <BarCodeScanner 
         style={StyleSheet.absoluteFillObject}
         onBarCodeScanned={scanData ? undefined : handleBarCodeScanned}
-        />
+			/>
       {scanData && <Button title='Scan Again?' onPress={() => setScanData(undefined)} />}
       <StatusBar style="auto" />
     </View>

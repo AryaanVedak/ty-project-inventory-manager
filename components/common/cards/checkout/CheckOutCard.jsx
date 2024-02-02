@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 import styles from './checkoutcard.style'
 import { IconButton } from 'react-native-paper';
 
-const CheckOutCard = ({ item, handleNavigate }) => {
+const CheckOutCard = ({ item, handleAdd, onDataReceived }) => {
   return (
     <View style={styles.container}>
         <View style={styles.textContainer}>
@@ -15,7 +15,7 @@ const CheckOutCard = ({ item, handleNavigate }) => {
         icon="cart" 
         mode="contained" 
         size={20}
-        onPress={() => {}}
+        onPress={() => onDataReceived(item)}
       />
     </View>
   )

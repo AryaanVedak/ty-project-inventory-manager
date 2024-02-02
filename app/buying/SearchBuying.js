@@ -18,6 +18,7 @@ const SearchBuying = () => {
 
 	const {data, isLoading, error} = useFetch();
 	const [search, setSearch] = useState();
+	const [items, setItems] = useState([]);
 	const [newData, setNewData] = useState(null);
 	const [cartItems, setCartItems] = useState(5);
 
@@ -36,6 +37,24 @@ const SearchBuying = () => {
 		const filteredData = data.filter((item) => item.name.toLowerCase().includes(value.toLowerCase()))
 		setNewData(filteredData)
 	}
+
+	const getSelectedData = (data) => {
+    console.log(data)
+    if (items.length > 0) {
+      const foundItem = items.find(obj => obj.code === data.code);
+      let d = {...data, quantity: 1, total: data.mrp}
+      if (foundItem) {
+        setItems(items.map(obj =>
+          obj.name === data.name ? { ...obj, quantity: obj.quantity + d.quantity, total: obj.mrp * (obj.quantity + 1) } : obj
+        ));
+      } else {
+        setItems(prevItems => [...prevItems, d]);
+      }
+    } else {
+      setItems([{...data, quantity: 1, total: data.mrp}])
+    }
+    
+  };
 
 	return (
 		<>
@@ -88,42 +107,57 @@ const SearchBuying = () => {
 							data={newData}
 							isLoading={isLoading}
 							error={error}
+							getItems={getSelectedData}
 						/>
 					</View>
 				</ScrollView>
-				<View style={{
-					backgroundColor: COLORS.tertiary,
-					margin: 20,
-					height: 50,
-					width: 350,
-					paddingTop: 5,
-					paddingBottom: 5,
-					paddingLeft: 30,
-					paddingRight: 10,
-					borderRadius: 20,
-					position: 'absolute',
-					bottom: 0,
-					alignSelf: 'center',
-					alignItems: 'center',
-					flexDirection: 'row',
-				}}>
-					<Text style={{
-						fontSize: SIZES.medium,
-						fontFamily: "DMBold",
-						color: "black",
-						flex: 1
-
-					}}>Items in Cart: {cartItems}</Text>
-					<Button radius={"sm"} type="clear" style={{
-						flex: 5,
-						alignSelf: 'flex-end'
-					}}>
-						<Icon name="chevron-right" color="white"  />
-					</Button>
-				</View>
+				<CartBar cartItems={items.length}/>
 			</SafeAreaView>
 		</>
 	)
 }
 
 export default SearchBuying;
+
+const CartBar = ({cartItems}) => {
+
+	const navigation = useNavigation()
+
+	return (
+		<View style={{
+			backgroundColor: COLORS.tertiary,
+			margin: 20,
+			height: 50,
+			width: 350,
+			paddingTop: 5,
+			paddingBottom: 5,
+			paddingLeft: 30,
+			paddingRight: 10,
+			borderRadius: 20,
+			position: 'absolute',
+			bottom: 0,
+			alignSelf: 'center',
+			alignItems: 'center',
+			flexDirection: 'row',
+		}}>
+			<Text style={{
+				fontSize: SIZES.medium,
+				fontFamily: "DMBold",
+				color: "white",
+				flex: 1
+
+			}}>Items in Cart: {cartItems}</Text>
+			<Button 
+				radius={"sm"} 
+				type="clear" 
+				onPress={() => navigation.navigate('cart')}
+				style={{
+					flex: 5,
+					alignSelf: 'flex-end'
+				}}
+			>
+				<Icon name="chevron-right" color="white"  />
+			</Button>
+		</View>
+	)
+}

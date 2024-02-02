@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 
@@ -8,9 +8,15 @@ import PopularJobCard from '../../common/cards/nearby/NearbyJobCard';
 import { isLoaded } from 'expo-font';
 import CheckoutCard from '../../common/cards/checkout/CheckOutCard';
 
-const Checkout = ({data, isLoading, error}) => {
+const Checkout = ({data, isLoading, error, getItems}) => {
 
   const router = useRouter();
+
+  const [d, useD] = useState(null)
+
+  const traverseSelectedData = (item) => {
+    getItems(item)
+  }
 
   return (
     <View style={styles.container}>
@@ -32,6 +38,7 @@ const Checkout = ({data, isLoading, error}) => {
           <CheckoutCard
             key={`item-code-${item.code}`}
             item={item}
+            onDataReceived={() => traverseSelectedData(item)}
           />
           ))
         )}

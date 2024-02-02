@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { router } from 'expo-router';
 import Scanner from '../scanner/Scanner';
+import Cart from '../cart/cart';
 import SearchBuying from './SearchBuying';
 
 const BuyingPage = () => {
@@ -42,6 +43,7 @@ const BuyingPage = () => {
 			>
 				<Stack.Screen name="searchbuying" component={SearchBuying} />
 				<Stack.Screen name="scanner" component={Scanner} />
+				<Stack.Screen name="cart" component={Cart} />
 			</Stack.Navigator>
 		</>
 	)
