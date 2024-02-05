@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { FAB } from '@rneui/themed';
 import { SafeAreaView } from "react-native";
-import {COLORS, icons, images, SIZES} from '../../constants'
+import {COLORS, icons, SIZES} from '../../constants'
 import { Icon } from '@rneui/themed';
 import styles from '../../components/home/welcome/welcome.style'
 import Checkout from '../../components/home/checkout/Checkout';
@@ -10,7 +10,6 @@ import useFetch from '../../Hook/useFetch';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Button } from '@rneui/themed';
-import Scanner from '../scanner/Scanner';
 
 
 const SearchBuying = () => {
@@ -138,7 +137,10 @@ const SearchBuying = () => {
 						/>
 					</View>
 				</ScrollView>
-				<CartBar cartItems={items ? items.length : 0}/>
+				<CartBar 
+					cartItems={items ? items.length : 0}
+					items={items}
+				/>
 			</SafeAreaView>
 		</>
 	)
@@ -146,7 +148,7 @@ const SearchBuying = () => {
 
 export default SearchBuying;
 
-const CartBar = ({cartItems}) => {
+const CartBar = ({cartItems, items}) => {
 
 	const navigation = useNavigation()
 
@@ -177,7 +179,7 @@ const CartBar = ({cartItems}) => {
 			<Button 
 				radius={"sm"} 
 				type="clear" 
-				onPress={() => navigation.navigate('cart')}
+				onPress={() => navigation.navigate('cart', { data: items })}
 				style={{
 					flex: 5,
 					alignSelf: 'flex-end'
