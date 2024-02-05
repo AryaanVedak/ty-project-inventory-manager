@@ -10,6 +10,7 @@ import useFetch from '../../Hook/useFetch';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Button } from '@rneui/themed';
+import Scanner from '../scanner/Scanner';
 
 
 const SearchBuying = () => {
@@ -18,9 +19,9 @@ const SearchBuying = () => {
 
 	const {data, isLoading, error} = useFetch();
 	const [search, setSearch] = useState();
+	// const [openScanner, setOpenScanner] = useState(false);
 	const [items, setItems] = useState([]);
 	const [newData, setNewData] = useState(null);
-	const [cartItems, setCartItems] = useState(5);
 
 	const navigation = useNavigation()
 
@@ -32,29 +33,55 @@ const SearchBuying = () => {
 		}
 	},[data])
 
+	useEffect(() => {
+		console.log("items: ", items)
+		// console.log("length: ", items.length)
+	}, [items])
+
 	const changeSearch = (value) => {
 		setSearch(value)
 		const filteredData = data.filter((item) => item.name.toLowerCase().includes(value.toLowerCase()))
 		setNewData(filteredData)
 	}
 
+
 	const getSelectedData = (data) => {
-    console.log(data)
-    if (items.length > 0) {
-      const foundItem = items.find(obj => obj.code === data.code);
-      let d = {...data, quantity: 1, total: data.mrp}
-      if (foundItem) {
-        setItems(items.map(obj =>
-          obj.name === data.name ? { ...obj, quantity: obj.quantity + d.quantity, total: obj.mrp * (obj.quantity + 1) } : obj
-        ));
-      } else {
-        setItems(prevItems => [...prevItems, d]);
-      }
-    } else {
-      setItems([{...data, quantity: 1, total: data.mrp}])
-    }
-    
-  };
+
+		console.log(data)
+		console.log("itemlength: ",items.length)
+
+		if (items.length > 0) {
+			const foundItem = items.find(obj => obj.code === data.code);
+			console.log("found item: ", foundItem)
+			let d = {...data, quantity: 1, total: data.mrp}
+			if (foundItem) {
+				setItems(items.map(obj =>
+					obj.code === data.code ? { ...obj, quantity: obj.quantity + 1, total: obj.mrp * (obj.quantity + 1) } : obj
+				));
+			} else {
+				setItems(prevItems => [...prevItems, d]);
+			}
+		} else {
+			console.log("items.length < 0")
+			setItems([{...data, quantity: 1, total: data.mrp}])
+		}
+		
+		// if (items) {
+		// 	const foundItem = items.find(obj => obj.code === data.code);
+		// 	console.log("found item: ", foundItem)
+		// 	let d = {...data, quantity: 1, total: data.mrp}
+		// 	if (foundItem) {
+		// 		setItems(items.map(obj =>
+		// 			obj.code === data.code ? { ...obj, quantity: obj.quantity + 1, total: obj.mrp * (obj.quantity + 1) } : obj
+		// 		));
+		// 	} else {
+		// 		setItems(prevItems => [...prevItems, d]);
+		// 	}
+		// } else {
+		// 	console.log("items.length < 0")
+		// 	setItems([{...data, quantity: 1, total: data.mrp}])
+		// }
+	};
 
 	return (
 		<>
@@ -68,9 +95,9 @@ const SearchBuying = () => {
 						bottom: 80,
 						right: 30
 					}}	
-					onPress={() => navigation.navigate('scanner')}
-					>
-						<Icon
+					onPress={() => navigation.navigate('scanner', { onDataScanned: getSelectedData })}
+				>
+					<Icon
 						reverse
 						name='barcode'
 						type='font-awesome'
@@ -87,7 +114,7 @@ const SearchBuying = () => {
 						</View>
 						<View style={styles.searchContainer}>
 							<View style={styles.searchWrapper}>
-								<TextInput 
+								<TextInput  
 									style={styles.searchInput}
 									value={search}
 									onChangeText={(e) => changeSearch(e)}
@@ -111,7 +138,7 @@ const SearchBuying = () => {
 						/>
 					</View>
 				</ScrollView>
-				<CartBar cartItems={items.length}/>
+				<CartBar cartItems={items ? items.length : 0}/>
 			</SafeAreaView>
 		</>
 	)

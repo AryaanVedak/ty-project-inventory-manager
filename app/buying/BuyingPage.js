@@ -14,6 +14,7 @@ const BuyingPage = () => {
 	const {data, isLoading, error} = useFetch();
 	const [search, setSearch] = useState();
 	const [newData, setNewData] = useState(null);
+	const [code, setCode] = useState(null);
 
 	const navigation = useNavigation()
 
