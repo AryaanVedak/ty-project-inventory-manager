@@ -1,16 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button, ToastAndroid } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import useFetch from '../../Hook/useFetch';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 
-const Scanner = ({ onItemCodeScanned }) => {
+const InventoryScanner = () => {
 	const [hasPermission, setHasPermission] = React.useState(false);
-  const [scanData, setScanData] = React.useState();
-	const {data, isLoading, error} = useFetch();
-  const [newData, setnewData] = useState()
+  const [scanData, setScanData] = useState();
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -21,10 +18,6 @@ const Scanner = ({ onItemCodeScanned }) => {
     })();
   }, []);
 
-  useEffect(() => {
-    setnewData(data)
-  }, [data]);
-
   if (!hasPermission) {
     return (
       <View style={styles.container}>
@@ -34,21 +27,9 @@ const Scanner = ({ onItemCodeScanned }) => {
   }
 
   const handleBarCodeScanned = ({type, data}) => {
-
-    const isPresent = newData.find(obj => obj.code === data)
     setScanData(data);
-    // console.log(`Data: ${data}`);
-    // console.log(`Type: ${type}`);
-
-    if (isPresent) {
-      // console.log("is present: ", isPresent)
-      route.params.onDataScanned(isPresent);
-      navigation.goBack();
-      ToastAndroid.show('Item added successfully!', ToastAndroid.SHORT);
-    } else if (isPresent == undefined) {
-      ToastAndroid.show('Item not found', ToastAndroid.SHORT);
-      return
-    }
+    route.params.onDataScanned(data);
+    navigation.goBack();
   };
 
   return (
@@ -71,4 +52,4 @@ const styles = StyleSheet.create ({
 	}
 })
 
-export default Scanner;
+export default InventoryScanner;

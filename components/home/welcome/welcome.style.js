@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     fontFamily: FONT.regular,
     width: "100%",
     height: "100%",
+    // margin: 20,
     paddingHorizontal: SIZES.medium,
   },
   searchBtn: {

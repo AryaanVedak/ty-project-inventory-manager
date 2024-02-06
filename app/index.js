@@ -11,6 +11,7 @@ import HomePage from "../components/home/HomePage";
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Icon } from "react-native-paper";
+import InventoryAdd from "./inventory/inventoryPage";
 
 
 const Home = () => {
@@ -56,9 +57,15 @@ const Home = () => {
                 </View>
               )
             }
-            // tabBarIcon: () => {
-            //   <Icon name="chevron-right" color="white"  />
-            // }
+          }}/>
+          <Tab.Screen name='Inventory' component={InventoryAdd} options={{
+            tabBarIcon: ({focused}) => {
+              return (
+                <View style={{alignItems: "center", justifyContent: "center"}}>
+                  <MaterialIcons name="inventory" size={24}  color={focused ? COLORS.tertiary : "black"} />
+                </View>
+              )
+            }
           }}/>
           <Tab.Screen name='Buying' component={Buying} options={{
             tabBarIcon: ({focused}) => {
@@ -68,9 +75,6 @@ const Home = () => {
                 </View>
               )
             }
-            // tabBarIcon: () => {
-            //   <Feather name="home-outline" size={24} color="black" />
-            // }
           }}/>
         </Tab.Navigator>
       </SafeAreaView>

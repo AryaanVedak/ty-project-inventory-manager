@@ -6,6 +6,7 @@ import { router } from 'expo-router';
 import Scanner from '../scanner/Scanner';
 import Cart from '../cart/cart';
 import SearchBuying from './SearchBuying';
+import InventoryScanner from '../scanner/InventoryScanner';
 
 const BuyingPage = () => {
 
@@ -45,6 +46,7 @@ const BuyingPage = () => {
 				<Stack.Screen name="searchbuying" component={SearchBuying} />
 				<Stack.Screen name="scanner" component={Scanner} />
 				<Stack.Screen name="cart" component={Cart} />
+				<Stack.Screen name="inventoryscanner" component={InventoryScanner} />
 			</Stack.Navigator>
 		</>
 	)
