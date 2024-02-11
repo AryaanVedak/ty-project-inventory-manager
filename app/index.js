@@ -12,6 +12,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Icon } from "react-native-paper";
 import InventoryAdd from "./inventory/inventoryPage";
+import DatabasePage from "./dbpage/databasePage";
 
 
 const Home = () => {
@@ -54,6 +55,15 @@ const Home = () => {
               return (
                 <View style={{alignItems: "center", justifyContent: "center"}}>
                   <Ionicons name="home" size={24} color={focused ? COLORS.tertiary : "black"} />
+                </View>
+              )
+            }
+          }}/>
+          <Tab.Screen name='Database' component={DatabasePage} options={{
+            tabBarIcon: ({focused}) => {
+              return (
+                <View style={{alignItems: "center", justifyContent: "center"}}>
+                  <MaterialIcons name="inventory" size={24}  color={focused ? COLORS.tertiary : "black"} />
                 </View>
               )
             }
