@@ -13,6 +13,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Icon } from "react-native-paper";
 import InventoryAdd from "./inventory/inventoryPage";
 import DatabasePage from "./dbpage/databasePage";
+import { Entypo } from '@expo/vector-icons';
 
 
 const Home = () => {
@@ -63,7 +64,7 @@ const Home = () => {
             tabBarIcon: ({focused}) => {
               return (
                 <View style={{alignItems: "center", justifyContent: "center"}}>
-                  <MaterialIcons name="inventory" size={24}  color={focused ? COLORS.tertiary : "black"} />
+                  <Entypo name="database" size={24} color={focused ? COLORS.tertiary : "black"}/>
                 </View>
               )
             }
