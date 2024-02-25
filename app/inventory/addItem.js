@@ -9,7 +9,6 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { COLORS, FONT, SIZES } from "../../constants";
 
 import axios from "axios";  
-import { FlatList } from 'react-native-gesture-handler';
 
 
 const AddItem = () => {
