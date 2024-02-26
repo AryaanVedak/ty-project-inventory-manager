@@ -191,7 +191,6 @@ const Cart = () => {
 		setItems([])
 	}
 
-
 	return (
 		<>
 			<SafeAreaView style={{ flex: 1, backgroundColor: "#FAFAFC" }}>
