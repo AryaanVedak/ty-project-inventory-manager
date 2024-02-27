@@ -39,7 +39,7 @@ const AddItem = () => {
     try {
         const r = await axios.request({
           method: 'GET',
-          url: `http://192.168.29.169:5001/api/database/getproductbycode/${code}`,
+          url: `http://192.168.0.189:5001/api/database/getproductbycode/${code}`,
           params: {},
           headers: {
               'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM',
@@ -73,7 +73,7 @@ const AddItem = () => {
         const r = await axios.request({
           method: 'POST',
           data: JSON.stringify(product),
-          url: `http://192.168.29.169:5001/api/inventory/addproduct`,
+          url: `http://192.168.0.189:5001/api/inventory/addproduct`,
           params: {},
           headers: {
               'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM',

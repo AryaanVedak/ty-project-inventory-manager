@@ -17,7 +17,7 @@ const Welcome = () => {
         <Text style={styles.userName}>Hello Aryaan</Text>
         <Text style={styles.welcomeMessage}>Find Product Details</Text>
       </View>
-      <View style={styles.searchContainer}>
+      {/* <View style={styles.searchContainer}>
         <View style={styles.searchWrapper}>
           <TextInput 
             style={styles.searchInput}
@@ -34,7 +34,7 @@ const Welcome = () => {
             style={styles.searchBtnImage}
           />
         </TouchableOpacity>
-      </View>
+      </View> */}
 
       <View style={styles.tabsContainer}>
         <FlatList
