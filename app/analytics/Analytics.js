@@ -16,40 +16,10 @@ const Analytics = () => {
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    // const {data, isLoading, error} =  useFetchPie();
-    // setAllData(data);
-    // fetchRefresh()
     setTimeout(() => {
       setRefreshing(false);
     }, 2000);
   }, []);
-
-  // const fetchRefresh = async () => {
-  //   try {
-  //       const response = await axios.request({
-  //         method: 'GET',
-  //         url: `http://192.168.0.189:5001/api/sale/getallinvoices`,
-  //         params: {},
-  //         headers: {
-  //             'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM',
-  //             'Content-Type': 'application/json',
-  //         },
-  //       });
-
-  //       if (response.status === 200) {
-  //         console.log("Data recieved")
-  //         setAllData(response.data)
-  //         // ToastAndroid.show(`Stats changed to: ${status.value}`,ToastAndroid.SHORT)
-  //       } else {
-  //           throw new Error('Error Occured');
-  //       }
-  //   } catch (error) {
-  //       setError(error)
-  //       console.log("Invoice not present: ", error);
-  //   } finally {
-
-  //   }
-  // }
 
 	return (
 		<>
