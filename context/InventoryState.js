@@ -2,7 +2,7 @@ import InventoryContext from './InventoryContext'
 import {useState} from "react";
 const InventoryState = (props) => {
 
-  const host = "http://192.168.0.192:5001"
+  const host = "http://192.168.29.169:5001"
   const productInitial = []
   const [authToken, setAuthToken] = useState('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM')
   const [isLoading, setIsLoading] = useState(false)
