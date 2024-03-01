@@ -6,6 +6,7 @@ const InventoryState = (props) => {
   const productInitial = []
   const [authToken, setAuthToken] = useState('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM')
   const [isLoading, setIsLoading] = useState(false)
+  const [isLogin, setIsLogin] = useState(false)
   const [product, setProducts] = useState(productInitial)
   const [user, setUser] = useState()
   const [currentProduct, setCurrentProduct] = useState(productInitial)
@@ -33,6 +34,11 @@ const InventoryState = (props) => {
 
     const json = await response.json()
     setAuthToken(json.authToken)
+    if(response.status === 200) {
+      setIsLogin(true)
+    } else if (response.status === 400 ) {
+      setIsLogin(false)
+    }
     console.log(json.authToken)
   }
 
@@ -312,7 +318,7 @@ const InventoryState = (props) => {
   // }
 
   return(
-    <InventoryContext.Provider value={{host,isLoading,product,prodName,database,currentProduct,user,profit,invoices,invoice,authToken,isSuccess,getProductById,fetchProduct,getProductByCode,addProduct,addProductToDB,fetchDatabase,getUser,deleteProduct,paymentComplete, getProfits, getAllInvoices, updateStatus,getSingleInvoice,login,logout}}>
+    <InventoryContext.Provider value={{host,isLogin,isLoading,product,prodName,database,currentProduct,user,profit,invoices,invoice,authToken,isSuccess,getProductById,fetchProduct,getProductByCode,addProduct,addProductToDB,fetchDatabase,getUser,deleteProduct,paymentComplete, getProfits, getAllInvoices, updateStatus,getSingleInvoice,login,logout}}>
       {/* eslint-disable-next-line react/prop-types */}
       {props.children}
     </InventoryContext.Provider>

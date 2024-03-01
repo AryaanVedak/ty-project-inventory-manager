@@ -26,9 +26,9 @@ const Nearbyjobs = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Inventory Items</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => fetchProduct()}>
           <Text style={styles.headerBtn}>
-            Show all
+            Refresh
           </Text>
         </TouchableOpacity>
       </View>
