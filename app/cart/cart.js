@@ -56,10 +56,12 @@ const Cart = () => {
   }
 
 	const handleClickMinus = (code) => {
-    setItems(items.map(obj => 
+    const data = items.map(obj => 
       obj.code == code ? {...obj, quantity: obj.quantity - 1, total: obj.mrp * (obj.quantity - 1)} : obj  
-    ))
+    )
     console.log('Clicked Minus!');
+
+		setItems(data.filter(item => item.quantity > 0))
   };
 
   const handleClickPlus = (code) => {
