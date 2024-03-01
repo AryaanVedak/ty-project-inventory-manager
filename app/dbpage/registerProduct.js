@@ -9,19 +9,22 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { COLORS, FONT, SIZES } from "../../constants";
 
 import axios from "axios";  
-import { FlatList } from 'react-native-gesture-handler';
+import { useContext } from 'react';
+import inventoryContext from '../../context/InventoryContext';
 
 
 const RegisterProduct = () => {
 
   const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null); 
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [error, setError] = useState(null); 
 
 	const [code, setCode] = useState();
 	const [name, setName] = useState();
 
   const navigation = useNavigation();
+  const context = useContext(inventoryContext)
+  const {addProductToDB} = context;
 
   const getSelectedData = async (code) => {
     setCode(code);
@@ -64,13 +67,13 @@ const RegisterProduct = () => {
     "code": code,
     }
 
-    registerToDB(payload)
+    addProductToDB(payload)
 
   }
 
-  useEffect(() => {
-    console.log(error)
-  }, [error])
+  // useEffect(() => {
+  //   console.log(error)
+  // }, [error])
 
 	return (
 		<>

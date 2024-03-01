@@ -15,6 +15,7 @@ import InventoryAdd from "./inventory/inventoryPage";
 import DatabasePage from "./dbpage/databasePage";
 import Analytics from "./analytics/Analytics";;
 import { Entypo } from '@expo/vector-icons';
+import InventoryState from "../context/InventoryState";
 
 
 const Home = () => {
@@ -32,73 +33,75 @@ const Home = () => {
 
   return (
     <>
-      <SafeAreaView style={{flex: 1, backgroundColor: COLORS.lightWhite}}>
-        <Stack.Screen
-          options={{
-            headerStyle: {backgroundColor: COLORS.lightWhite},
-            headerShadowVisible: false,
-            headerLeft: () => (
-              <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%"/>
-            ),
-            headerRight: () => (
-              <ScreenHeaderBtn iconUrl={icons.barcode} dimension="70%"/>
-            ),
-            headerTitle: "",
-          }}
-        />
-        {/* <HomePage/> */}
-        <Tab.Navigator 
-          screenOptions={({route}) => ({
-            headerShown: false,
-          })}
-        >
-          <Tab.Screen name='Home' component={HomePage} options={{
-            tabBarIcon: ({focused}) => {
-              return (
-                <View style={{alignItems: "center", justifyContent: "center"}}>
-                  <Ionicons name="home" size={24} color={focused ? COLORS.tertiary : "black"} />
-                </View>
-              )
-            }
-          }}/>
-          <Tab.Screen name='Database' component={DatabasePage} options={{
-            tabBarIcon: ({focused}) => {
-              return (
-                <View style={{alignItems: "center", justifyContent: "center"}}>
-                  <Entypo name="database" size={24} color={focused ? COLORS.tertiary : "black"}/>
-                </View>
-              )
-            }
-          }}/>
-          <Tab.Screen name='Inventory' component={InventoryAdd} options={{
-            tabBarIcon: ({focused}) => {
-              return (
-                <View style={{alignItems: "center", justifyContent: "center"}}>
-                  <MaterialIcons name="inventory" size={24}  color={focused ? COLORS.tertiary : "black"} />
-                </View>
-              )
-            }
-          }}/>
-          <Tab.Screen name='Analytics' component={Analytics} options={{
-            tabBarIcon: ({focused}) => {
-              return (
-                <View style={{alignItems: "center", justifyContent: "center"}}>
-                  <MaterialIcons name="analytics" size={24} color={focused ? COLORS.tertiary : "black"} />
-                </View>
-              )
-            }
-          }}/>
-          <Tab.Screen name='Buying' component={Buying} options={{
-            tabBarIcon: ({focused}) => {
-              return (
-                <View style={{alignItems: "center", justifyContent: "center"}}>
-                  <MaterialIcons name="business-center" size={24} color={focused ? COLORS.tertiary : "black"} />
-                </View>
-              )
-            }
-          }}/>
-        </Tab.Navigator>
-      </SafeAreaView>
+      <InventoryState>
+        <SafeAreaView style={{flex: 1, backgroundColor: COLORS.lightWhite}}>
+          <Stack.Screen
+            options={{
+              headerStyle: {backgroundColor: COLORS.lightWhite},
+              headerShadowVisible: false,
+              headerLeft: () => (
+                <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%"/>
+              ),
+              headerRight: () => (
+                <ScreenHeaderBtn iconUrl={icons.barcode} dimension="70%"/>
+              ),
+              headerTitle: "",
+            }}
+          />
+          {/* <HomePage/> */}
+          <Tab.Navigator 
+            screenOptions={({route}) => ({
+              headerShown: false,
+            })}
+          >
+            <Tab.Screen name='Home' component={HomePage} options={{
+              tabBarIcon: ({focused}) => {
+                return (
+                  <View style={{alignItems: "center", justifyContent: "center"}}>
+                    <Ionicons name="home" size={24} color={focused ? COLORS.tertiary : "black"} />
+                  </View>
+                )
+              }
+            }}/>
+            <Tab.Screen name='Database' component={DatabasePage} options={{
+              tabBarIcon: ({focused}) => {
+                return (
+                  <View style={{alignItems: "center", justifyContent: "center"}}>
+                    <Entypo name="database" size={24} color={focused ? COLORS.tertiary : "black"}/>
+                  </View>
+                )
+              }
+            }}/>
+            <Tab.Screen name='Inventory' component={InventoryAdd} options={{
+              tabBarIcon: ({focused}) => {
+                return (
+                  <View style={{alignItems: "center", justifyContent: "center"}}>
+                    <MaterialIcons name="inventory" size={24}  color={focused ? COLORS.tertiary : "black"} />
+                  </View>
+                )
+              }
+            }}/>
+            <Tab.Screen name='Analytics' component={Analytics} options={{
+              tabBarIcon: ({focused}) => {
+                return (
+                  <View style={{alignItems: "center", justifyContent: "center"}}>
+                    <MaterialIcons name="analytics" size={24} color={focused ? COLORS.tertiary : "black"} />
+                  </View>
+                )
+              }
+            }}/>
+            <Tab.Screen name='Buying' component={Buying} options={{
+              tabBarIcon: ({focused}) => {
+                return (
+                  <View style={{alignItems: "center", justifyContent: "center"}}>
+                    <MaterialIcons name="business-center" size={24} color={focused ? COLORS.tertiary : "black"} />
+                  </View>
+                )
+              }
+            }}/>
+          </Tab.Navigator>
+        </SafeAreaView>
+      </InventoryState>
     </>
   )
 }

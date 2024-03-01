@@ -8,6 +8,8 @@ import { Button, Overlay, Icon, Divider } from '@rneui/themed';
 import { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import axios from "axios";  
+import { useContext } from 'react';
+import inventoryContext from '../../context/InventoryContext';
 
 
 const Cart = () => {
@@ -18,14 +20,28 @@ const Cart = () => {
 	const [phone, setPhone] = useState();
 	const [name, setName] = useState();
 	const [email, setEmail] = useState();
-	const [userData, setUserData] = useState({});
+	// const [userData, setUserData] = useState({});
   const [showAddCustomer, setShowAddCustomer] = useState(false);
   const [payment, setPayment] = useState(false);
   const [content, setContent] = useState([]);
   const [bill, setBill] = useState();
-	const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null); 
+	// const [isLoading, setIsLoading] = useState(false);
+  // const [error, setError] = useState(null); 
+
+	const context = useContext(inventoryContext)
+  const {isLoading, user, getUser, paymentComplete} = context;
+	
 	const receivedData = route.params?.data;
+
+	useEffect(() => {
+		if(user) {
+			setPayment(true)
+		}
+	},[user])
+
+	const getUserDetails = () => {
+		getUser(phone)
+	}
 
 	useEffect(() => {
 		{receivedData ? setItems(receivedData) : console.log("noData")}
@@ -57,64 +73,65 @@ const Cart = () => {
 		setVisible(!visible);
 	};
 
-	const fetchUser = (id) => {
-		// console.log(id)
-    setIsLoading(true);
-		axios.request({
-			method: 'get',
-			url: `http://192.168.0.189:5001/api/sale/getuser/${id}`,
-			headers: {
-					'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM',
-					'Content-Type': 'application/json',
-			},
-		}).then((response) => {
-			setUserData(response.data);
-			setIsLoading(false);
-			setPayment(true)
-		}).catch((error) => {
-			if (error.response.data === "Number not found") {
-				console.log("Data not present");
-				setIsLoading(false);
-				setShowAddCustomer(true)
-			} else {
-				console.log(error)
-				setIsLoading(false)
-			}
-		})
-  }
+	// const fetchUser = (id) => {
+	// 	// console.log(id)
+  //   setIsLoading(true);
+	// 	axios.request({
+	// 		method: 'get',
+	// 		url: `http://192.168.0.189:5001/api/sale/getuser/${id}`,
+	// 		headers: {
+	// 				'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM',
+	// 				'Content-Type': 'application/json',
+	// 		},
+	// 	}).then((response) => {
+	// 		setUserData(response.data);
+	// 		setIsLoading(false);
+	// 		setPayment(true)
+	// 	}).catch((error) => {
+	// 		if (error.response.data === "Number not found") {
+	// 			console.log("Data not present");
+	// 			setIsLoading(false);
+	// 			setShowAddCustomer(true)
+	// 		} else {
+	// 			console.log(error)
+	// 			setIsLoading(false)
+	// 		}
+	// 	})
+  // }
 
-	const paymentComplete = async (invoice) => {
-		// console.log(id)
-    setIsLoading(true);
-    try {
-        const response = await axios.request({
-          method: 'POST',
-					data: invoice,
-          url: `http://192.168.29.169:5001/api/sale/saleinvoice`,
-          params: {},
-          headers: {
-              'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM',
-              'Content-Type': 'application/json',
-          },
-        });
+	// const paymentComplete = async (invoice) => {
+	// 	// console.log(id)
+  //   setIsLoading(true);
+  //   try {
+  //       const response = await axios.request({
+  //         method: 'POST',
+	// 				data: invoice,
+  //         url: `http://192.168.29.169:5001/api/sale/saleinvoice`,
+  //         params: {},
+  //         headers: {
+  //             'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM',
+  //             'Content-Type': 'application/json',
+  //         },
+  //       });
 
-				if (response.status === 200) {
-					console.log("Payment Complete")
-					setIsLoading(false);
-				} else {
-						throw new Error('Failed to fetch user data');
-				}
-    } catch (error) {
-        setError(error)
-				console.log("Invoice not sent!");
-				setIsLoading(false);
-    } finally {
-        setIsLoading(false);
-    }
-  }
+	// 			if (response.status === 200) {
+	// 				console.log("Payment Complete")
+	// 				setIsLoading(false);
+	// 			} else {
+	// 					throw new Error('Failed to fetch user data');
+	// 			}
+  //   } catch (error) {
+  //       setError(error)
+	// 			console.log("Invoice not sent!");
+	// 			setIsLoading(false);
+  //   } finally {
+  //       setIsLoading(false);
+  //   }
+  // }
 
 	const addUser = async () => {
 		if (name && phone) {
+
 			setIsLoading(true);
 			try {
 					const response = await axios.request({
@@ -124,7 +141,7 @@ const Cart = () => {
 							phoneNumber: phone,
 							email: email
 						}),
-						url: `http://192.168.0.189:5001/api/customer/addcustomer`,
+						url: `http://192.168.0.192:5001/api/customer/addcustomer`,
 						params: {},
 						headers: {
 								'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM',
@@ -181,7 +198,7 @@ const Cart = () => {
       transactionId: "",
       type: type,
       status: "incomplete",
-      customer: userData
+      customer: user
     }
 
 		setBill(invoice)
@@ -286,7 +303,7 @@ const Cart = () => {
 									placeholder="Enter Phone Number"
 								/>
 							</View>
-							<TouchableOpacity style={styles.searchBtn} onPress={() => {fetchUser(phone)}}>
+							<TouchableOpacity style={styles.searchBtn} onPress={() => getUserDetails()}>
 								<MaterialIcons name="search" size={24} color="white"/>
 							</TouchableOpacity>
 						</View>

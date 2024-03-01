@@ -1,18 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 
 import styles from './nearbyjobs.style';
 import { COLORS } from '../../../constants';
-import PopularJobCard from '../../common/cards/nearby/NearbyJobCard';
-import { isLoaded } from 'expo-font';
 import useFetch from '../../../Hook/useFetch';
 import NearbyJobCard from '../../common/cards/nearby/NearbyJobCard';
+import { Context } from 'react';
+import inventoryContext from '../../../context/InventoryContext';
+import { useContext } from 'react';
 
 const Nearbyjobs = () => {
 
   const router = useRouter();
-  const {data, isLoading, error} = useFetch();
+  // const {data, isLoading, error} = useFetch();
+  const context = useContext(inventoryContext);
+  const { isLoading, product, currentProduct, getProductById, fetchProduct } = context;
+
+  useEffect(() => {
+    fetchProduct()
+  }, [])
+
 
   return (
     <View style={styles.container}>
@@ -27,10 +35,8 @@ const Nearbyjobs = () => {
       <View style={styles.cardsContainer}>
         {isLoading ? (
           <ActivityIndicator color={COLORS.primary} size="large" />
-        ): error ? (
-          <Text>Something went wrong!</Text>
         ) : (
-          data?.map((item) => (
+          product?.map((item) => (
           <NearbyJobCard
             key={`item-code-${item.code}`}
             item={item}
@@ -38,6 +44,15 @@ const Nearbyjobs = () => {
           />
           ))
         )}
+        {/* {data ? 
+          data?.map((item) => (
+            <NearbyJobCard
+              key={`item-code-${item.code}`}
+              item={item}
+              handleNavigate={() => router.push(`/product-details/${item._id}`)}
+            />
+          )) : <></>
+        } */}
       </View>
     </View>
   )

@@ -10,27 +10,35 @@ import useFetch from '../../Hook/useFetch';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Button } from '@rneui/themed';
-
+import { useContext } from 'react';
+import inventoryContext from '../../context/InventoryContext';
 
 const SearchBuying = () => {
 
 	const Stack = createStackNavigator();
 
-	const {data, isLoading, error} = useFetch();
+	// const {data, isLoading, error} = useFetch();
 	const [search, setSearch] = useState();
 	// const [openScanner, setOpenScanner] = useState(false);
 	const [items, setItems] = useState([]);
 	const [newData, setNewData] = useState(null);
 
+	const context = useContext(inventoryContext)
+  const {isLoading, product, fetchProduct} = context;
+
+	useEffect(() => {
+		fetchProduct()
+	},[])
+
 	const navigation = useNavigation()
 
 	useEffect(() => {
-		if (data.length > 0) {
+		if (product.length > 0) {
 			if (newData === null) {
-				setNewData(data)
+				setNewData(product)
 			}
 		}
-	},[data])
+	},[product])
 
 	useEffect(() => {
 		console.log("items: ", items)
@@ -132,7 +140,7 @@ const SearchBuying = () => {
 						<Checkout
 							data={newData}
 							isLoading={isLoading}
-							error={error}
+							// error={error}
 							getItems={getSelectedData}
 						/>
 					</View>

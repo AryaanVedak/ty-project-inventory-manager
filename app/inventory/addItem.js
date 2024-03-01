@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, ToastAndroid } from 'react-native';
 import { SafeAreaView } from "react-native";
 import { FAB } from '@rneui/themed';
 import { Icon } from '@rneui/themed';
@@ -9,12 +9,14 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { COLORS, FONT, SIZES } from "../../constants";
 
 import axios from "axios";  
+import { useContext } from 'react';
+import inventoryContext from '../../context/InventoryContext';
 
 
 const AddItem = () => {
 
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [data, setData] = useState([]);
+  // const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null); 
   const [result, setResult] = useState(); 
 
@@ -28,71 +30,82 @@ const AddItem = () => {
 
   const navigation = useNavigation();
 
+  const context = useContext(inventoryContext)
+  const {isLoading, prodName, isSuccess, getProductByCode, addProduct} = context;
+
   const getSelectedData = async (code) => {
     setSearch(code);
-    fetchDataByCode(code);
-  }
-
-  const fetchDataByCode = async (code) => {
-    setIsLoading(true);
-    console.log(code)
-    try {
-        const r = await axios.request({
-          method: 'GET',
-          url: `http://192.168.0.189:5001/api/database/getproductbycode/${code}`,
-          params: {},
-          headers: {
-              'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM',
-              'Content-Type': 'application/json',
-          },
-        });
-        const response = r.data
-        console.log(r.data)
-        setData(response)
-        setIsLoading(false);
-        setIsCode(true)
-    } catch (error) {
-        setError(error)
-        alert('There is an error')
-    } finally {
-        setIsLoading(false);
-    }
+    getProductByCode(code);
   }
 
   useEffect(() => {
-    if(data) {
-      setName(data.name)
+    if (prodName) {
+      setName(prodName)
+      setIsCode(true)
     }
-  }, [data])
+  },[prodName])
 
-  const addProduct = async (data) => {
+  // const fetchDataByCode = async (code) => {
+  //   setIsLoading(true);
+  //   console.log(code)
+  //   try {
+  //       const r = await axios.request({
+  //         method: 'GET',
+  //         url: `http://192.168.0.189:5001/api/database/getproductbycode/${code}`,
+  //         params: {},
+  //         headers: {
+  //             'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM',
+  //             'Content-Type': 'application/json',
+  //         },
+  //       });
+  //       const response = r.data
+  //       console.log(r.data)
+  //       setData(response)
+  //       setIsLoading(false);
+  //       setIsCode(true)
+  //   } catch (error) {
+  //       setError(error)
+  //       alert('There is an error')
+  //   } finally {
+  //       setIsLoading(false);
+  //   }
+  // }
 
-    setIsLoading(true);
-    try {
-        const product = [data]
-        const r = await axios.request({
-          method: 'POST',
-          data: JSON.stringify(product),
-          url: `http://192.168.0.189:5001/api/inventory/addproduct`,
-          params: {},
-          headers: {
-              'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM',
-              'Content-Type': 'application/json',
-          },
-        });
-        const response = r.data
-        console.log(r.data)
-        setResult(1)
-        setIsLoading(false);
-        console.log("Data Added")
-    } catch (error) {
-        setError(error)
-        setResult(0)
-        alert('There is an error')
-    } finally {
-        setIsLoading(false);
-    }
-  }
+  // useEffect(() => {
+  //   if(data) {
+  //     setName(data.name)
+  //     console.log(data)
+  //   }
+  // }, [data])
+
+  // const addProduct = async (data) => {
+
+  //   setIsLoading(true);
+  //   try {
+  //       const product = [data]
+  //       const r = await axios.request({
+  //         method: 'POST',
+  //         data: JSON.stringify(product),
+  //         url: `http://192.168.0.189:5001/api/inventory/addproduct`,
+  //         params: {},
+  //         headers: {
+  //             'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM',
+  //             'Content-Type': 'application/json',
+  //         },
+  //       });
+  //       const response = r.data
+  //       console.log(r.data)
+  //       setResult(1)
+  //       setIsLoading(false);
+  //       console.log("Data Added")
+  //   } catch (error) {
+  //       setError(error)
+  //       setResult(0)
+  //       alert('There is an error')
+  //   } finally {
+  //       setIsLoading(false);
+  //   }
+  // }
   
   useEffect(() => {
     if(result) {
@@ -114,6 +127,14 @@ const AddItem = () => {
     addProduct(payload)
 
   }
+
+  useEffect(() => {
+    if(isSuccess === true) {
+      ToastAndroid.show('Item added successfully!', ToastAndroid.SHORT);
+    } else if (isSuccess === false) {
+      ToastAndroid.show('Something went wrong', ToastAndroid.SHORT); 
+    }
+  },[])
 
 	return (
 		<>
@@ -155,7 +176,7 @@ const AddItem = () => {
               <TextInput  
                 style={styles.searchInput}
                 value={search}
-                onChangeText={(e) => changeSearch(e)}
+                onChangeText={(e) => setSearch(e)}
                 placeholder="Enter product code"
               />
             </View>
@@ -202,12 +223,15 @@ const AddItem = () => {
                       placeholder="Enter Expiry Date"
                     />
                   </View>
+                  <TouchableOpacity style={styles.searchBtn} onPress={sendData}>
+                    <MaterialIcons name="search" size={24} color="white"/>
+                  </TouchableOpacity>
                 </>
-              ) : console.log("No Code!")
+              ) : 
+              <TouchableOpacity style={styles.searchBtn} onPress={() => getSelectedData(search)}>
+                <MaterialIcons name="search" size={24} color="white"/>
+              </TouchableOpacity>
             }
-            <TouchableOpacity style={styles.searchBtn} onPress={sendData}>
-              <MaterialIcons name="search" size={24} color="white"/>
-            </TouchableOpacity>
           </View>
         </View>
       </SafeAreaView>
