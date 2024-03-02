@@ -1,5 +1,5 @@
 import InventoryContext from './InventoryContext'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 const InventoryState = (props) => {
 
   const host = "http://192.168.29.169:5001"
@@ -8,6 +8,7 @@ const InventoryState = (props) => {
   const [isLoading, setIsLoading] = useState(false)
   const [isLogin, setIsLogin] = useState(false)
   const [product, setProducts] = useState(productInitial)
+  const [status, setStatus] = useState()
   const [user, setUser] = useState()
   const [currentProduct, setCurrentProduct] = useState(productInitial)
   const [isSuccess, setIsSuccess] = useState()
@@ -16,6 +17,16 @@ const InventoryState = (props) => {
   const [profit, setProfit] = useState(productInitial)
   const [invoices, setInvoices] = useState(productInitial)
   const [invoice, setInvoice] = useState(productInitial)
+
+  useEffect(() => {
+    if (status !== undefined) {
+      const timeoutId = setTimeout(() => {
+        setStatus(undefined); // Or any other desired value
+      }, 2000);
+
+      return () => clearTimeout(timeoutId); // Cleanup function to prevent memory leaks
+    }
+  },[status])
 
   //Auth
   const login = async (data) => {
@@ -180,7 +191,7 @@ const InventoryState = (props) => {
   //Add a product to database
   const addProductToDB = async (data) => {
     // setIsLoading(true)
-    console.log("adding a new product to database")
+    // console.log("adding a new product to database")
     const product = data
     // setProducts(product.concat(product))
 
@@ -194,6 +205,7 @@ const InventoryState = (props) => {
       },
       body: JSON.stringify(product),
     })
+    setStatus(response.status)
     // setIsLoading(false)
   }
 
@@ -212,6 +224,7 @@ const InventoryState = (props) => {
     console.log(json)
     setProdName(json.name)
     setIsLoading(false)
+    setStatus(response.status)
   }
 
   //Add an invoice
@@ -318,7 +331,7 @@ const InventoryState = (props) => {
   // }
 
   return(
-    <InventoryContext.Provider value={{host,isLogin,isLoading,product,prodName,database,currentProduct,user,profit,invoices,invoice,authToken,isSuccess,getProductById,fetchProduct,getProductByCode,addProduct,addProductToDB,fetchDatabase,getUser,deleteProduct,paymentComplete, getProfits, getAllInvoices, updateStatus,getSingleInvoice,login,logout}}>
+    <InventoryContext.Provider value={{host,isLogin,isLoading,status,product,prodName,database,currentProduct,user,profit,invoices,invoice,authToken,isSuccess,getProductById,fetchProduct,getProductByCode,addProduct,addProductToDB,fetchDatabase,getUser,deleteProduct,paymentComplete, getProfits, getAllInvoices, updateStatus,getSingleInvoice,login,logout}}>
       {/* eslint-disable-next-line react/prop-types */}
       {props.children}
     </InventoryContext.Provider>

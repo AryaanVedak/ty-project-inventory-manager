@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
-
+import { COLORS, FONT, SHADOWS, SIZES } from "../../../../constants";
 import styles from './basiccard.style'
 
 const interstyles = {
@@ -41,7 +41,11 @@ const BasicCard = ({ data }) => {
 
   return (
     <View style={interstyles.app}>
-			<Text>Details</Text>
+			<Text style={{
+        margin: 4,
+        fontFamily: FONT.bold,
+        fontSize: SIZES.large,
+      }}>Details</Text>
 			<Row>
         <Col numRows={1}>
           <View style={styles.container}>

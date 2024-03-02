@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, ScrollView, ToastAndroid } from 'react-native';
 import { SafeAreaView } from "react-native";
 import { FAB } from '@rneui/themed';
 import { Icon } from '@rneui/themed';
@@ -15,50 +15,15 @@ import inventoryContext from '../../context/InventoryContext';
 
 const RegisterProduct = () => {
 
-  const [data, setData] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [error, setError] = useState(null); 
-
 	const [code, setCode] = useState();
 	const [name, setName] = useState();
 
   const navigation = useNavigation();
   const context = useContext(inventoryContext)
-  const {addProductToDB} = context;
+  const {status, addProductToDB} = context;
 
   const getSelectedData = async (code) => {
     setCode(code);
-  }
-
-  useEffect(() => {
-    console.log(data)
-  }, [data])
-
-  const registerToDB = async (data) => {
-
-    setIsLoading(true);
-    try {
-        const product = data
-        const r = await axios.request({
-          method: 'POST',
-          data: JSON.stringify(product),
-          url: `http://192.168.29.169:5001/api/database/addproduct`,
-          params: {},
-          headers: {
-              'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM',
-              'Content-Type': 'application/json',
-          },
-        });
-        const response = r.data
-        setData(response)
-        setIsLoading(false);
-        console.log("Data Added")
-    } catch (error) {
-        setError(error)
-        alert('There is an error')
-    } finally {
-        setIsLoading(false);
-    }
   }
 
   const sendData = () => {
@@ -68,12 +33,19 @@ const RegisterProduct = () => {
     }
 
     addProductToDB(payload)
-
   }
 
-  // useEffect(() => {
-  //   console.log(error)
-  // }, [error])
+  useEffect(() => {
+    if(status === 200) {
+      ToastAndroid.show('Product Registered', ToastAndroid.SHORT);
+    } else if (status === 403) {
+      ToastAndroid.show('Product is already registered', ToastAndroid.SHORT);
+    } else if (status === 400) {
+      ToastAndroid.show('Something went wrong!', ToastAndroid.SHORT);
+    } else if (status === 500) {
+      ToastAndroid.show('No network', ToastAndroid.SHORT);
+    }
+  },[status])
 
 	return (
 		<>

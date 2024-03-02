@@ -31,7 +31,7 @@ const AddItem = () => {
   const navigation = useNavigation();
 
   const context = useContext(inventoryContext)
-  const {isLoading, prodName, isSuccess, getProductByCode, addProduct} = context;
+  const {isLoading, status, prodName, isSuccess, getProductByCode, addProduct} = context;
 
   const getSelectedData = async (code) => {
     setSearch(code);
@@ -39,73 +39,21 @@ const AddItem = () => {
   }
 
   useEffect(() => {
+    if(status === 200) {
+      ToastAndroid.show('Product Found', ToastAndroid.SHORT);
+    } else if (status === 404) {
+      ToastAndroid.show('Product Not Found!', ToastAndroid.SHORT);
+    } else if (status === 500) {
+      ToastAndroid.show('Internal Server Error', ToastAndroid.SHORT);
+    }
+  },[status])
+
+  useEffect(() => {
     if (prodName) {
       setName(prodName)
       setIsCode(true)
     }
   },[prodName])
-
-  // const fetchDataByCode = async (code) => {
-  //   setIsLoading(true);
-  //   console.log(code)
-  //   try {
-  //       const r = await axios.request({
-  //         method: 'GET',
-  //         url: `http://192.168.0.189:5001/api/database/getproductbycode/${code}`,
-  //         params: {},
-  //         headers: {
-  //             'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM',
-  //             'Content-Type': 'application/json',
-  //         },
-  //       });
-  //       const response = r.data
-  //       console.log(r.data)
-  //       setData(response)
-  //       setIsLoading(false);
-  //       setIsCode(true)
-  //   } catch (error) {
-  //       setError(error)
-  //       alert('There is an error')
-  //   } finally {
-  //       setIsLoading(false);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   if(data) {
-  //     setName(data.name)
-  //     console.log(data)
-  //   }
-  // }, [data])
-
-  // const addProduct = async (data) => {
-
-  //   setIsLoading(true);
-  //   try {
-  //       const product = [data]
-  //       const r = await axios.request({
-  //         method: 'POST',
-  //         data: JSON.stringify(product),
-  //         url: `http://192.168.0.189:5001/api/inventory/addproduct`,
-  //         params: {},
-  //         headers: {
-  //             'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM',
-  //             'Content-Type': 'application/json',
-  //         },
-  //       });
-  //       const response = r.data
-  //       console.log(r.data)
-  //       setResult(1)
-  //       setIsLoading(false);
-  //       console.log("Data Added")
-  //   } catch (error) {
-  //       setError(error)
-  //       setResult(0)
-  //       alert('There is an error')
-  //   } finally {
-  //       setIsLoading(false);
-  //   }
-  // }
   
   useEffect(() => {
     if(result) {
@@ -130,7 +78,7 @@ const AddItem = () => {
 
   useEffect(() => {
     if(isSuccess === true) {
-      ToastAndroid.show('Item added successfully!', ToastAndroid.SHORT);
+      ToastAndroid.show('Items added successfully!', ToastAndroid.SHORT);
     } else if (isSuccess === false) {
       ToastAndroid.show('Something went wrong', ToastAndroid.SHORT); 
     }
