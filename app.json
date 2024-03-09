@@ -7,7 +7,24 @@
     "plugins": [
       "expo-router"
     ],
-    "name": "nativecodebase",
-    "slug": "nativecodebase"
+    "name": "InventoryXpert",
+    "slug": "InventoryXpert",
+    "icon": "./assets/InventoryXpert.png",
+    "splash": {
+      "image": "./assets/InventoryXpert.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "dc0b23a9-fb10-449d-a208-9c2d07e7e508"
+      }
+    },
+    "android": {
+      "package": "com.aryaanvedak.InventoryXpert"
+    }
   }
 }

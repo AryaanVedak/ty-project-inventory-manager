@@ -90,6 +90,10 @@ const SearchBuying = () => {
 		// }
 	};
 
+	const performEmpty = () => {
+		setItems([])
+	}
+
 	return (
 		<>
 			<SafeAreaView style={{ flex: 1, backgroundColor: "#FAFAFC" }}>
@@ -142,6 +146,7 @@ const SearchBuying = () => {
 							isLoading={isLoading}
 							// error={error}
 							getItems={getSelectedData}
+							emptyCart={performEmpty}
 						/>
 					</View>
 				</ScrollView>

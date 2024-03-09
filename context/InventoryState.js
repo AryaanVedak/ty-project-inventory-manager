@@ -54,7 +54,9 @@ const InventoryState = (props) => {
   }
 
   const logout = () => {
-    setAuthToken()
+    console.log("Logged out")
+    setAuthToken(null)
+    setIsLogin(false)
   }
 
   //Fetch All product

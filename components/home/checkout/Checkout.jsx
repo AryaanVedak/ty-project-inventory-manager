@@ -8,7 +8,7 @@ import PopularJobCard from '../../common/cards/nearby/NearbyJobCard';
 import { isLoaded } from 'expo-font';
 import CheckoutCard from '../../common/cards/checkout/CheckOutCard';
 
-const Checkout = ({data, isLoading, error, getItems}) => {
+const Checkout = ({data, isLoading, error, getItems, emptyCart}) => {
 
   const router = useRouter();
 
@@ -22,9 +22,9 @@ const Checkout = ({data, isLoading, error, getItems}) => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Inventory Items</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => emptyCart()}>
           <Text style={styles.headerBtn}>
-            Show all
+            Empty cart
           </Text>
         </TouchableOpacity>
       </View>

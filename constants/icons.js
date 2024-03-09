@@ -9,9 +9,11 @@ import location from "../assets/icons/location.png";
 import chevronLeft from '../assets/icons/chevron-left.png'
 import chevronRight from '../assets/icons/chevron-right.png'
 import barcode from '../assets/icons/barcode.png'
+import exit from '../assets/icons/exit.png'
 
 export default {
   barcode,
+  exit,
   heart,
   menu,
   search,

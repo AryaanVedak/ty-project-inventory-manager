@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, SafeAreaView } from "react-native";
+import { View, Text, SafeAreaView, TouchableOpacity, Image } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {COLORS, icons, images, SIZES} from '../constants'
@@ -13,12 +13,17 @@ import InventoryAdd from "./inventory/inventoryPage";
 import DatabasePage from "./dbpage/databasePage";
 import Analytics from "./analytics/Analytics";;
 import { Entypo } from '@expo/vector-icons';
-import InventoryState from "../context/InventoryState";
+import styles from '../components/common/header/screenheader.style'
+import inventoryContext from "../context/InventoryContext";
+import { useContext } from "react";
 
 
-const MainPage = () => {
-	
+const MainPage = ({ onLogout }) => {
+
   const Tab = createBottomTabNavigator();
+
+  const context = useContext(inventoryContext);
+  const { logout } = context;
 
   renderContent = (pageText) => {
     return (
@@ -27,6 +32,11 @@ const MainPage = () => {
         <Text style={{ margin: 50 }}>{pageText}</Text>
       </View>
     )
+  }
+
+  const handleOut = () => {
+    logout()
+    onLogout()
   }
 
   return (
@@ -40,7 +50,13 @@ const MainPage = () => {
               <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%"/>
             ),
             headerRight: () => (
-              <ScreenHeaderBtn iconUrl={icons.barcode} dimension="70%"/>
+              <TouchableOpacity style={styles.btnContainer} onPress={() => handleOut()}>
+                <Image
+                  source={icons.exit}
+                  resizeMode='cover'
+                  style={styles.btnImg("50%")}
+                />
+              </TouchableOpacity>
             ),
             headerTitle: "",
           }}
