@@ -75,62 +75,6 @@ const Cart = () => {
 		setVisible(!visible);
 	};
 
-	// const fetchUser = (id) => {
-	// 	// console.log(id)
-  //   setIsLoading(true);
-	// 	axios.request({
-	// 		method: 'get',
-	// 		url: `http://192.168.0.189:5001/api/sale/getuser/${id}`,
-	// 		headers: {
-	// 				'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM',
-	// 				'Content-Type': 'application/json',
-	// 		},
-	// 	}).then((response) => {
-	// 		setUserData(response.data);
-	// 		setIsLoading(false);
-	// 		setPayment(true)
-	// 	}).catch((error) => {
-	// 		if (error.response.data === "Number not found") {
-	// 			console.log("Data not present");
-	// 			setIsLoading(false);
-	// 			setShowAddCustomer(true)
-	// 		} else {
-	// 			console.log(error)
-	// 			setIsLoading(false)
-	// 		}
-	// 	})
-  // }
-
-	// const paymentComplete = async (invoice) => {
-	// 	// console.log(id)
-  //   setIsLoading(true);
-  //   try {
-  //       const response = await axios.request({
-  //         method: 'POST',
-	// 				data: invoice,
-  //         url: `http://192.168.29.169:5001/api/sale/saleinvoice`,
-  //         params: {},
-  //         headers: {
-  //             'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM',
-  //             'Content-Type': 'application/json',
-  //         },
-  //       });
-
-	// 			if (response.status === 200) {
-	// 				console.log("Payment Complete")
-	// 				setIsLoading(false);
-	// 			} else {
-	// 					throw new Error('Failed to fetch user data');
-	// 			}
-  //   } catch (error) {
-  //       setError(error)
-	// 			console.log("Invoice not sent!");
-	// 			setIsLoading(false);
-  //   } finally {
-  //       setIsLoading(false);
-  //   }
-  // }
-
 	const addUser = async () => {
 		if (name && phone) {
 
@@ -143,7 +87,7 @@ const Cart = () => {
 							phoneNumber: phone,
 							email: email
 						}),
-						url: `http://192.168.29.169:5001/api/customer/addcustomer`,
+						url: `http://192.168.0.188:5001/api/customer/addcustomer`,
 						params: {},
 						headers: {
 								'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM',

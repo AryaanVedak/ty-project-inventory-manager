@@ -17,9 +17,7 @@ const SearchBuying = () => {
 
 	const Stack = createStackNavigator();
 
-	// const {data, isLoading, error} = useFetch();
 	const [search, setSearch] = useState();
-	// const [openScanner, setOpenScanner] = useState(false);
 	const [items, setItems] = useState([]);
 	const [newData, setNewData] = useState(null);
 
@@ -42,7 +40,6 @@ const SearchBuying = () => {
 
 	useEffect(() => {
 		console.log("items: ", items)
-		// console.log("length: ", items.length)
 	}, [items])
 
 	const changeSearch = (value) => {
@@ -72,22 +69,6 @@ const SearchBuying = () => {
 			console.log("items.length < 0")
 			setItems([{...data, quantity: 1, total: data.mrp}])
 		}
-		
-		// if (items) {
-		// 	const foundItem = items.find(obj => obj.code === data.code);
-		// 	console.log("found item: ", foundItem)
-		// 	let d = {...data, quantity: 1, total: data.mrp}
-		// 	if (foundItem) {
-		// 		setItems(items.map(obj =>
-		// 			obj.code === data.code ? { ...obj, quantity: obj.quantity + 1, total: obj.mrp * (obj.quantity + 1) } : obj
-		// 		));
-		// 	} else {
-		// 		setItems(prevItems => [...prevItems, d]);
-		// 	}
-		// } else {
-		// 	console.log("items.length < 0")
-		// 	setItems([{...data, quantity: 1, total: data.mrp}])
-		// }
 	};
 
 	const performEmpty = () => {
@@ -144,7 +125,6 @@ const SearchBuying = () => {
 						<Checkout
 							data={newData}
 							isLoading={isLoading}
-							// error={error}
 							getItems={getSelectedData}
 							emptyCart={performEmpty}
 						/>

@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
     textTransform: "capitalize",
   },
   companyName: {
-    fontSize: SIZES.medium,
-    fontFamily: FONT.regular,
+    fontSize: SIZES.large,
+    fontFamily: FONT.bold,
     color: COLORS.tertiary,
     marginTop: SIZES.small / 1.5,
   },

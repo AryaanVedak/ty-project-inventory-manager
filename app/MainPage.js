@@ -46,9 +46,9 @@ const MainPage = ({ onLogout }) => {
           options={{
             headerStyle: {backgroundColor: COLORS.lightWhite},
             headerShadowVisible: false,
-            headerLeft: () => (
-              <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%"/>
-            ),
+            // headerLeft: () => (
+            //   <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%"/>
+            // ),
             headerRight: () => (
               <TouchableOpacity style={styles.btnContainer} onPress={() => handleOut()}>
                 <Image

@@ -36,7 +36,7 @@ const Welcome = () => {
         </TouchableOpacity>
       </View> */}
 
-      <View style={styles.tabsContainer}>
+      {/* <View style={styles.tabsContainer}>
         <FlatList
           data={jobTypes}
           renderItem={({ item }) => (
@@ -54,7 +54,7 @@ const Welcome = () => {
           contentContainerStyle={{ columnGap: SIZES.small }}
           horizontal
         />
-      </View>
+      </View> */}
 
     </View>
   )

@@ -27,39 +27,6 @@ const InvoiceStatus = () => {
     getAllInvoices()
   },[])
 
-  // useEffect(() => {
-  //   console.log(data)
-  // },[data])
-
-  // const fetchRefresh = async () => {
-  //   try {
-  //     console.log("fetchRefresh")
-  //     const response = await axios.request({
-  //       method: 'GET',
-  //       url: `http://192.168.0.189:5001/api/sale/getallinvoices`,
-  //       params: {},
-  //       headers: {
-  //           'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM',
-  //           'Content-Type': 'application/json',
-  //       },
-  //     });
-
-  //     if (response.status === 200) {
-  //       console.log("Data recieved")
-  //       const d = response.data
-  //       setData(d)
-  //       setIsLoading(false)
-  //     } else {
-  //         throw new Error('Error Occured');
-  //     }
-  //   } catch (error) {
-  //       setError(error)
-  //       console.log("Invoice not present: ", error);
-  //   } finally {
-
-  //   }
-  // }
-
   const refresh = () => {
     getAllInvoices()
     console.log("refresh")
@@ -79,18 +46,13 @@ const InvoiceStatus = () => {
         {isLoading ? (
           <ActivityIndicator color={COLORS.primary} size="large" />
         ) : (
-          invoices?.map((item) => (
+          invoices?.slice().reverse()?.map((item) => (
             <InvoiceCard
               key={item._id}
               item={item}
               customer={item.customer}
               handleNavigate={() => router.push(`/invoice-details/${item._id}`)}
             />
-          // <NearbyJobCard
-          //   key={`item-code-${item.code}`}
-          //   item={item}
-          //   handleNavigate={() => router.push(`/product-details/${item._id}`)}
-          // />
           ))
         )}
       </View>

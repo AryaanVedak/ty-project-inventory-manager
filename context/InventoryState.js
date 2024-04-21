@@ -14,8 +14,9 @@ const InventoryState = (props) => {
   const [isSuccess, setIsSuccess] = useState()
   const [database, setDatabase] = useState(productInitial)
   const [prodName, setProdName] = useState()
-  const [profit, setProfit] = useState(productInitial)
+  const [profit, setProfit] = useState()
   const [invoices, setInvoices] = useState(productInitial)
+  const [analysis, setAnalysis] = useState(undefined)
   const [invoice, setInvoice] = useState(productInitial)
 
   useEffect(() => {
@@ -30,7 +31,7 @@ const InventoryState = (props) => {
 
   //Auth
   const login = async (data) => {
-    console.log("adding a new product")
+    // console.log("adding a new product")
 
     // API Call
     // eslint-disable-next-line no-unused-vars
@@ -315,6 +316,23 @@ const InventoryState = (props) => {
     setIsLoading(false)
   }
 
+   //Get Analyse Invoices
+   const getAnalysis = async () => {
+    setIsLoading(true)
+    // API Call
+    const response = await fetch(`${host}/api/sale/analyseinvoices`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': authToken,
+      },
+    });
+    const json = await response.json()
+    // console.log(json)
+    setAnalysis(json)
+    setIsLoading(false)
+  }
+
   // //Edit a product
   // const userAdd = async ( status ) => {
   //   // API Call
@@ -333,7 +351,7 @@ const InventoryState = (props) => {
   // }
 
   return(
-    <InventoryContext.Provider value={{host,isLogin,isLoading,status,product,prodName,database,currentProduct,user,profit,invoices,invoice,authToken,isSuccess,getProductById,fetchProduct,getProductByCode,addProduct,addProductToDB,fetchDatabase,getUser,deleteProduct,paymentComplete, getProfits, getAllInvoices, updateStatus,getSingleInvoice,login,logout}}>
+    <InventoryContext.Provider value={{host,isLogin,isLoading,status,product,prodName,database,currentProduct,user,profit,invoices,invoice,analysis,authToken,isSuccess,getProductById,fetchProduct,getProductByCode,addProduct,addProductToDB,fetchDatabase,getUser,deleteProduct,paymentComplete, getProfits, getAllInvoices, updateStatus,getSingleInvoice,getAnalysis,login,logout}}>
       {/* eslint-disable-next-line react/prop-types */}
       {props.children}
     </InventoryContext.Provider>

@@ -67,7 +67,7 @@ const InvCard = ({ data }) => {
           data: JSON.stringify({
             status: status.value
           }),
-          url: `http://192.168.29.169:5001/api/sale/updateinvoicestatus/${data._id}`,
+          url: `http://192.168.0.188:5001/api/sale/updateinvoicestatus/${data._id}`,
           params: {},
           headers: {
               'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ4MGFjOTQ1ZDk2YWU5ZmUzOTdlN2U5In0sImlhdCI6MTY4NjIwMDYxMH0._RXLrE3g9RTlVC7MU6RMR64iOPkoioIb378qlboLFgM',
@@ -482,7 +482,7 @@ const InvCard = ({ data }) => {
         <Row>
           <Col numRows={1}>
             <View style={styles.container}>
-              <Text style={styles.jobName} numberOfLines={1}>Qty: </Text>
+              <Text style={styles.jobName} numberOfLines={1}>Taxable: </Text>
               <Text style={styles.jobNameMain} numberOfLines={1}>{data.taxable}</Text>
             </View>
           </Col>

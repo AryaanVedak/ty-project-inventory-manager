@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, SafeAreaView } from 'react-native';
-import {COLORS, icons, images, SIZES} from '../constants'
+import { View, Text, TextInput, Button, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
+import {COLORS, FONT, icons, images, SIZES} from '../constants'
 import { Stack, useRouter } from "expo-router";
 import { ScreenHeaderBtn } from "../components";
 import { useContext } from 'react';
@@ -55,7 +55,10 @@ const Login = ({ onLogin }) => {
           value={password}
           onChangeText={setPassword}
         />
-        <Button title="Login" onPress={handleLogin} />
+        <TouchableOpacity style={styles.searchBtn} onPress={() => handleLogin()}>
+          <Text style={{fontFamily: FONT.medium, color: "white"}}>Login</Text>
+        </TouchableOpacity>
+        {/* <Button title="Login" onPress={handleLogin}/> */}
       </View>
     </SafeAreaView>
   );
@@ -69,14 +72,36 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
+    fontFamily: FONT.bold,
     marginBottom: 20,
   },
   input: {
+    fontFamily: FONT.regular,
     width: '80%',
     padding: 10,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
+    borderRadius: 15,
+    marginBottom: 15,
+    borderWidth: 0,
+    // borderColor: '#ccc',
+    backgroundColor: "#ebebeb",
+  },
+  textContainer: {
+    backgroundColor: COLORS.white,
+    margin: 15,
+    // marginBottom: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: SIZES.medium,
+    height: "100%",
+    width: "95%"
+  },
+  searchBtn: {
+    width: 100,
+    height: 50,
+    backgroundColor: COLORS.tertiary,
+    borderRadius: SIZES.medium,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

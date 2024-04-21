@@ -2,6 +2,8 @@ import React from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import { COLORS, FONT, SHADOWS, SIZES } from "../../../../constants";
 import styles from './basiccard.style'
+import moment from 'moment';
+
 
 const interstyles = {
   app: {
@@ -39,6 +41,11 @@ const BasicCard = ({ data }) => {
 		<View style={interstyles.row}>{children}</View>
 	)
 
+  const formatDate = (dateString) => {
+    const date = moment.utc(dateString);  // Parse the date string in UTC
+    return date.format('DD/MM/YY');        // Format the date in dd/mm/yy
+  };
+
   return (
     <View style={interstyles.app}>
 			<Text style={{
@@ -70,12 +77,13 @@ const BasicCard = ({ data }) => {
         <Col numRows={3}>
           <View style={styles.container}>
 						<Text style={styles.jobName} numberOfLines={1}>Expiry Date: </Text>
-						<Text style={styles.jobNameMainEx} numberOfLines={1}>{data.expirydate}</Text>
+						<Text style={styles.jobNameMainEx} numberOfLines={1}>{formatDate(data.expirydate)}</Text>
 					</View>
         </Col>
       </Row>
 		</View>
   )
 }
+
 
 export default BasicCard

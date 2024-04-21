@@ -19,9 +19,6 @@ const BuyingPage = () => {
 
 	const navigation = useNavigation()
 
-	// useEffect(() => {
-	// 	console.log('newData: ',newData)
-	// },[newData])
 	useEffect(() => {
 		if (data.length > 0) {
 			if (newData === null) {

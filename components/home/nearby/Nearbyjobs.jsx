@@ -13,7 +13,6 @@ import { useContext } from 'react';
 const Nearbyjobs = () => {
 
   const router = useRouter();
-  // const {data, isLoading, error} = useFetch();
   const context = useContext(inventoryContext);
   const { isLoading, product, currentProduct, getProductById, fetchProduct } = context;
 
